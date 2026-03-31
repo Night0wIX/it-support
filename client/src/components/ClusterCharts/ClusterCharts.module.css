@@ -1,0 +1,48 @@
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.charts__item {
+  background: var(--surface-2);
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid var(--border-l);
+  transition: all 0.3s var(--ease);
+  animation: scaleIn 0.45s var(--ease) both;
+}
+
+.charts__item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.charts__item:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.charts__item:nth-child(3) {
+  animation-delay: 0.19s;
+}
+.charts__item:nth-child(4) {
+  animation-delay: 0.26s;
+}
+
+.charts__item:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.charts__heading {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  margin-bottom: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+@media (max-width: 768px) {
+  .charts {
+    grid-template-columns: 1fr;
+  }
+}

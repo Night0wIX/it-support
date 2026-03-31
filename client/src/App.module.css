@@ -1,0 +1,16 @@
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 20px 80px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.app__wizard {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 14px 14px 60px;
+  }
+}

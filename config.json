@@ -1,0 +1,29 @@
+{
+  "app": {
+    "name": "CRM Client Clustering",
+    "version": "1.0.0",
+    "language": "uk"
+  },
+  "server": {
+    "port": 3000,
+    "host": "localhost"
+  },
+  "paths": {
+    "data_dir": "data",
+    "output_dir": "output",
+    "log_file": "logs/app.log"
+  },
+  "ui": {
+    "theme": "dark",
+    "primaryColor": "#2196F3",
+    "secondaryColor": "#FF9800",
+    "bgColor": "#F5F5F5"
+  },
+  "clustering": {
+    "defaultK": 3,
+    "maxK": 10,
+    "minK": 2,
+    "maxIterations": 300,
+    "randomSeed": 42
+  }
+}

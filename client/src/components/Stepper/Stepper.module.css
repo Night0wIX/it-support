@@ -1,0 +1,113 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 24px;
+  animation: fadeDown 0.5s ease-out 0.15s both;
+  background: var(--surface);
+  border-radius: 60px;
+  padding: 6px 8px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-l);
+}
+
+.stepper__segment {
+  display: flex;
+  align-items: center;
+}
+
+.stepper__dot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  font-family: inherit;
+  color: var(--text-3);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.stepper__dot:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.stepper__dot--current {
+  background: var(--pri-glow);
+  color: var(--pri);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.stepper__dot--done {
+  color: var(--green);
+}
+
+.stepper__circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  transition: all 0.3s var(--ease);
+}
+
+.stepper__dot--current .stepper__circle {
+  background: var(--pri);
+  color: #fff;
+}
+
+.stepper__dot--done .stepper__circle {
+  background: var(--green);
+  color: #fff;
+}
+
+.stepper__text {
+  white-space: nowrap;
+}
+
+.stepper__bar {
+  width: 32px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 2px;
+  transition: background 0.4s var(--ease);
+}
+
+.stepper__bar--filled {
+  background: var(--green);
+}
+
+@media (max-width: 768px) {
+  .stepper {
+    padding: 4px 4px;
+  }
+
+  .stepper__dot {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+
+  .stepper__bar {
+    width: 18px;
+  }
+
+  .stepper__text {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .stepper__circle {
+    width: 24px;
+    height: 24px;
+  }
+}

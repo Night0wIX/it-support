@@ -32,11 +32,9 @@ export function createClusteringRoutes(
         !Array.isArray(featureCols) ||
         featureCols.length < 2
       ) {
-        res
-          .status(400)
-          .json({
-            error: "Оберіть принаймні 2 числові ознаки для кластеризації.",
-          });
+        res.status(400).json({
+          error: "Оберіть принаймні 2 числові ознаки для кластеризації.",
+        });
         return;
       }
 
@@ -61,6 +59,24 @@ export function createClusteringRoutes(
       if (missingCols.length > 0) {
         res.status(400).json({
           error: `Відсутні колонки у даних: ${missingCols.join(", ")}`,
+        });
+        return;
+      }
+
+      // Validate that feature columns contain numeric data
+      const nonNumericCols: string[] = [];
+      for (const col of featureCols as string[]) {
+        const invalidCount = data.filter(
+          (row) => isNaN(parseFloat(row[col])) || row[col].trim() === "",
+        ).length;
+        if (invalidCount > 0) {
+          nonNumericCols.push(`${col} (${invalidCount} нечислових значень)`);
+        }
+      }
+      if (nonNumericCols.length > 0) {
+        logger.warn(`Нечислові дані у колонках: ${nonNumericCols.join(", ")}`);
+        res.status(400).json({
+          error: `Деякі колонки містять нечислові дані: ${nonNumericCols.join("; ")}. Завантажте коректний CSV або оберіть інші ознаки.`,
         });
         return;
       }
@@ -101,6 +117,24 @@ export function createClusteringRoutes(
         featureCols.length < 2
       ) {
         res.status(400).json({ error: "Оберіть принаймні 2 числові ознаки." });
+        return;
+      }
+
+      // Validate that feature columns contain numeric data
+      const nonNumCols: string[] = [];
+      for (const col of featureCols as string[]) {
+        const invalidCount = data.filter(
+          (row) => isNaN(parseFloat(row[col])) || row[col].trim() === "",
+        ).length;
+        if (invalidCount > 0) {
+          nonNumCols.push(`${col} (${invalidCount} нечислових значень)`);
+        }
+      }
+      if (nonNumCols.length > 0) {
+        logger.warn(`Нечислові дані у колонках: ${nonNumCols.join(", ")}`);
+        res.status(400).json({
+          error: `Деякі колонки містять нечислові дані: ${nonNumCols.join("; ")}. Завантажте коректний CSV або оберіть інші ознаки.`,
+        });
         return;
       }
 

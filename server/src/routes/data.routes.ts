@@ -49,12 +49,8 @@ export function createDataRoutes(
 
         dataService.setData(records, req.file.originalname);
 
-        const columns = Object.keys(records[0]);
-        const numericColumns = columns.filter((col) =>
-          records.some(
-            (row) => !isNaN(parseFloat(row[col])) && row[col] !== "",
-          ),
-        );
+        const columns = dataService.getColumns();
+        const numericColumns = dataService.getNumericColumns();
 
         logger.info(
           `Завантажено ${records.length} записів, ${columns.length} колонок`,
@@ -88,10 +84,8 @@ export function createDataRoutes(
       const records = dataService.generateSampleData(count);
       dataService.setData(records, "generated_clients.csv");
 
-      const columns = Object.keys(records[0]);
-      const numericColumns = columns.filter((col) =>
-        records.some((row) => !isNaN(parseFloat(row[col])) && row[col] !== ""),
-      );
+      const columns = dataService.getColumns();
+      const numericColumns = dataService.getNumericColumns();
 
       res.json({
         message: `Згенеровано ${count} тестових записів клієнтів.`,

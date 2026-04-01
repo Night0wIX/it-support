@@ -27,7 +27,7 @@ export class DataService implements IDataService {
     if (!this.data || this.data.length === 0) return [];
     const cols = Object.keys(this.data[0]);
     return cols.filter((col) =>
-      this.data!.some((row) => !isNaN(parseFloat(row[col])) && row[col] !== ""),
+      this.data!.every((row) => row[col] !== "" && !isNaN(parseFloat(row[col]))),
     );
   }
 

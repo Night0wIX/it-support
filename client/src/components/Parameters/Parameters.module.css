@@ -91,6 +91,16 @@
   margin-bottom: 10px;
 }
 
+.params__warn {
+  color: #dc2626;
+  font-size: 0.82rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 0;
+}
+
 /* ── Chips ── */
 .params__chips {
   display: flex;

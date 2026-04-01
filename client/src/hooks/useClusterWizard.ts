@@ -150,9 +150,29 @@ export function useClusterWizard(): WizardState & WizardActions {
     );
   }, []);
 
+  const validateFeatureData = useCallback((): string | null => {
+    if (!dataInfo?.preview) return null;
+    const badCols: string[] = [];
+    for (const col of selectedFeatures) {
+      const invalid = dataInfo.preview.filter(
+        (row) => row[col] === "" || isNaN(parseFloat(row[col])),
+      ).length;
+      if (invalid > 0) badCols.push(col);
+    }
+    if (badCols.length > 0) {
+      return `Колонки містять нечислові дані: ${badCols.join(", ")}. Оберіть інші ознаки або завантажте коректний CSV.`;
+    }
+    return null;
+  }, [dataInfo, selectedFeatures]);
+
   const handleCluster = useCallback(async () => {
     if (selectedFeatures.length < 2) {
       setError("Оберіть принаймні 2 ознаки.");
+      return;
+    }
+    const validationError = validateFeatureData();
+    if (validationError) {
+      setError(validationError);
       return;
     }
     clearMessages();
@@ -169,11 +189,16 @@ export function useClusterWizard(): WizardState & WizardActions {
     } finally {
       setLoading("");
     }
-  }, [selectedFeatures, k]);
+  }, [selectedFeatures, k, validateFeatureData]);
 
   const handleFindOptimalK = useCallback(async () => {
     if (selectedFeatures.length < 2) {
       setError("Оберіть принаймні 2 ознаки.");
+      return;
+    }
+    const validationError = validateFeatureData();
+    if (validationError) {
+      setError(validationError);
       return;
     }
     clearMessages();

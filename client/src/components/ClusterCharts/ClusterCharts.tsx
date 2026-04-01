@@ -79,14 +79,19 @@ export function ClusterCharts({
           Розподіл клієнтів
         </h3>
         <ResponsiveContainer width="100%" height={320}>
-          <ScatterChart margin={{ top: 10, right: 10, bottom: 20, left: 10 }}>
+          <ScatterChart margin={{ top: 10, right: 10, bottom: 30, left: 10 }}>
             <CartesianGrid {...gridStyle} />
             <XAxis
               dataKey="x"
               name={features[0]}
               type="number"
               tick={axisStyle}
-              label={{ value: features[0], position: "bottom", ...labelStyle }}
+              label={{
+                value: features[0],
+                position: "bottom",
+                offset: 20,
+                ...labelStyle,
+              }}
             />
             <YAxis
               dataKey="y"

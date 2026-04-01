@@ -31,7 +31,9 @@ export function Parameters({
   onBack,
   animClass,
 }: ParametersProps) {
-  const disabled = !!loading || selectedFeatures.length < 2;
+  const hasEnoughFeatures = dataInfo.numericColumns.length >= 2;
+  const disabled =
+    !!loading || selectedFeatures.length < 2 || !hasEnoughFeatures;
 
   return (
     <div className={cn(s.params, animClass)}>
@@ -69,19 +71,26 @@ export function Parameters({
           </div>
           <p className={s.params__hint}>Мінімум 2 числові ознаки</p>
           <div className={s.params__chips}>
-            {dataInfo.numericColumns.map((col) => (
-              <button
-                key={col}
-                className={cn(
-                  s.params__chip,
-                  selectedFeatures.includes(col) && s["params__chip--active"],
-                )}
-                onClick={() => onToggleFeature(col)}
-              >
-                <span className={s.params__chipDot} />
-                {col}
-              </button>
-            ))}
+            {dataInfo.numericColumns.length === 0 ? (
+              <p className={s.params__warn}>
+                У завантаженому файлі немає повністю числових колонок.
+                Завантажте інший CSV із коректними числовими даними.
+              </p>
+            ) : (
+              dataInfo.numericColumns.map((col) => (
+                <button
+                  key={col}
+                  className={cn(
+                    s.params__chip,
+                    selectedFeatures.includes(col) && s["params__chip--active"],
+                  )}
+                  onClick={() => onToggleFeature(col)}
+                >
+                  <span className={s.params__chipDot} />
+                  {col}
+                </button>
+              ))
+            )}
           </div>
         </section>
 

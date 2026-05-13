@@ -45,6 +45,7 @@ export default function App() {
             onGenerate={w.handleGenerate}
             onNext={() => w.goTo(2)}
             animClass={getAnimClass(w.animDir)}
+            onReset={w.handleReset}
           />
         )}
 

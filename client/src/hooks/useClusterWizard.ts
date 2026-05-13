@@ -45,6 +45,7 @@ export interface WizardActions {
   setError: (msg: string) => void;
   setSuccess: (msg: string) => void;
   resetAnalysis: () => void;
+  handleReset: () => void;
 }
 
 export function useClusterWizard(): WizardState & WizardActions {
@@ -221,6 +222,17 @@ export function useClusterWizard(): WizardState & WizardActions {
     goTo(1);
   }, [goTo]);
 
+  const handleReset = useCallback(() => {
+    clearMessages();
+    setDataInfo(null);
+    setSelectedFeatures([]);
+    setClusterResult(null);
+    setOptimalKResult(null);
+    if (fileRef.current) fileRef.current.value = "";
+    if (config) setK(config.clustering.defaultK);
+    goTo(1);
+  }, [config, goTo]);
+
   const maxReached: Step = !dataInfo ? 1 : !clusterResult ? 2 : 3;
 
   return {
@@ -250,5 +262,6 @@ export function useClusterWizard(): WizardState & WizardActions {
     setError,
     setSuccess,
     resetAnalysis,
+    handleReset,
   };
 }

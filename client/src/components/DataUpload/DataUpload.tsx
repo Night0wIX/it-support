@@ -13,6 +13,7 @@ interface DataUploadProps {
   onDragLeave: () => void;
   onGenerate: () => void;
   onNext: () => void;
+  onReset: () => void;
   animClass: string;
 }
 
@@ -27,6 +28,7 @@ export function DataUpload({
   onDragLeave,
   onGenerate,
   onNext,
+  onReset,
   animClass,
 }: DataUploadProps) {
   return (
@@ -213,7 +215,25 @@ export function DataUpload({
 
       {/* Navigation */}
       <div className={s.upload__nav}>
-        <div />
+        <button
+          className={s.upload__reset}
+          onClick={onReset}
+          disabled={!dataInfo}
+          title="Скинути дані"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <polyline points="1 4 1 10 7 10" />
+            <path d="M3.51 15a9 9 0 1 0 .49-4.95" />
+          </svg>
+          Скинути
+        </button>
         <button
           className={s.upload__next}
           onClick={onNext}
